@@ -22,101 +22,119 @@ A complete Next.js application that generates dynamic QR codes and provides deta
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - MySQL database
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository:
-\`\`\`bash
+
+```
 git clone <repository-url>
 cd qr-redirect-service
-\`\`\`
+```
 
 2. Install dependencies:
-\`\`\`bash
+
+```
 npm install
-\`\`\`
+```
 
 3. Set up environment variables:
-\`\`\`bash
+
+```
 cp .env.example .env
-\`\`\`
+```
 
 Edit `.env` with your database connection string:
-\`\`\`env
+
+```
 DATABASE_URL="mysql://username:password@localhost:3306/qr_redirect_db"
 NEXT_PUBLIC_BASE_URL="http://localhost:3000"
-\`\`\`
+```
 
 4. Set up the database:
-\`\`\`bash
+
 # Generate Prisma client
+
+```
 npm run db:generate
+```
 
 # Push schema to database
+
+```
 npm run db:push
+```
 
 # Or run migrations (for production)
+
+```
 npm run db:migrate
-\`\`\`
+```
 
 5. Start the development server:
-\`\`\`bash
+
+```
 npm run dev
-\`\`\`
+```
 
 Visit `http://localhost:3000` to see the application.
 
 ## API Endpoints
 
 ### Create Link
-\`\`\`bash
+
+```
 curl -X POST http://localhost:3000/api/links \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type": "URL",
-    "destination": "https://example.com"
-  }'
-\`\`\`
+-H "Content-Type: application/json" \
+-d '{
+"type": "URL",
+"destination": "https://example.com"
+}'
+```
 
 ### Create vCard
-\`\`\`bash
+
+```
 curl -X POST http://localhost:3000/api/links \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type": "VCARD",
-    "vcard": {
-      "firstName": "John",
-      "lastName": "Doe",
-      "email": "john@example.com",
-      "phone": "+1234567890"
-    }
-  }'
-\`\`\`
+-H "Content-Type: application/json" \
+-d '{
+"type": "VCARD",
+"vcard": {
+"firstName": "John",
+"lastName": "Doe",
+"email": "john@example.com",
+"phone": "+1234567890"
+}
+}'
+```
 
 ### Create App Download
-\`\`\`bash
+
+```bash
 curl -X POST http://localhost:3000/api/links \
-  -H "Content-Type: application/json" \
-  -d '{
-    "type": "APP_DOWNLOAD",
-    "appDownload": {
-      "iosUrl": "https://apps.apple.com/app/example",
-      "androidUrl": "https://play.google.com/store/apps/details?id=com.example"
-    }
-  }'
-\`\`\`
+-H "Content-Type: application/json" \
+-d '{
+"type": "APP_DOWNLOAD",
+"appDownload": {
+"iosUrl": "https://apps.apple.com/app/example",
+"androidUrl": "https://play.google.com/store/apps/details?id=com.example"
+}
+}'
+```
 
 ### Get Analytics
-\`\`\`bash
+
+```bash
 curl http://localhost:3000/api/links/{code}/stats
-\`\`\`
+```
 
 ## Database Schema
 
 ### Link Model
+
 - `id`: Unique identifier
 - `code`: Short URL code (8 characters)
 - `type`: Link type (URL, PDF, VCARD, MESSAGE, APP_DOWNLOAD)
@@ -125,6 +143,7 @@ curl http://localhost:3000/api/links/{code}/stats
 - `createdAt`, `updatedAt`: Timestamps
 
 ### Scan Model
+
 - `id`: Unique identifier
 - `linkId`: Reference to Link
 - `timestamp`: Scan time
@@ -140,21 +159,23 @@ curl http://localhost:3000/api/links/{code}/stats
 
 1. Set up a production MySQL database
 2. Update environment variables:
-\`\`\`env
-DATABASE_URL="mysql://user:pass@host:port/database"
-NEXT_PUBLIC_BASE_URL="https://yourdomain.com"
-\`\`\`
+
+   ```
+   DATABASE_URL="mysql://user:pass@host:port/database"
+   NEXT_PUBLIC_BASE_URL="https://yourdomain.com"
+   ```
 
 3. Run database migrations:
-\`\`\`bash
-npm run db:migrate
-\`\`\`
+
+   ```bash
+   npm run db:migrate
+   ```
 
 4. Build and start:
-\`\`\`bash
-npm run build
-npm start
-\`\`\`
+   ```bash
+   npm run build
+   npm start
+   ```
 
 ### Vercel Deployment
 
@@ -165,18 +186,23 @@ npm start
 ## Usage Examples
 
 ### URL Redirect
+
 Create a QR code that redirects to any website. Perfect for marketing campaigns, business cards, or sharing links.
 
 ### PDF Downloads
+
 Generate QR codes for direct PDF access. Great for menus, brochures, or document sharing.
 
 ### Contact Cards (vCard)
+
 Share contact information that automatically imports into address books when scanned.
 
 ### Text Messages
+
 Display custom messages or instructions when the QR code is scanned.
 
 ### App Downloads
+
 Smart redirects that detect the user's device and redirect to the appropriate app store.
 
 ## Analytics Features
