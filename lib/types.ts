@@ -40,3 +40,17 @@ export interface ScanStats {
   topLocations: { location: string; count: number }[]
   deviceBreakdown: { device: string; count: number }[]
 }
+
+export interface User {
+  id: string
+  name?: string
+  email: string
+  password?: string
+  role: "USER" | "ADMIN"
+  plan: "FREE" | "PREMIUM"
+  stripeCustomerId?: string
+  subscriptionId?: string
+  subscriptionStatus?: string
+  createdAt: Date
+  updatedAt: Date
+}
